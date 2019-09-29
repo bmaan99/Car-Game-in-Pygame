@@ -3,7 +3,8 @@ import random
 
 pygame.init()
 pygame.font.init()
-
+crash_sound = pygame.mixer.Sound("crash_sound.wav")
+pygame.mixer.music.load("car_music.mp3")
 # Pause variable used for unpausing or pause the game
 pause = False
 
@@ -56,6 +57,8 @@ def exitgame():
 
 # Function for crash sequence    
 def crash ():
+    pygame.mixer.music.stop()
+    pygame.mixer.Sound.play(crash_sound)
     crash = False
     while not crash:
         for event in pygame.event.get():
@@ -98,11 +101,13 @@ def button(x,y,b_width,b_height,activecolor,inactivecolor,msg,command=None):
 
 # Function for unpause the game
 def unpause():
+    pygame.mixer.music.unpause()
     global pause
     pause = False
 
 # Function for Pause Screen         
 def pause_screen():
+    pygame.mixer.music.pause()
     global pause
     pause = True
     while pause :
@@ -154,6 +159,7 @@ def game_intro():
 # Function for functions of game
 
 def game_loop():
+    pygame.mixer.music.play(-1)
     # for drawing the Photo
     thing_width = 100
     thing_height = 100
