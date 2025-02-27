@@ -25,19 +25,41 @@ pause_button =(136,223,17)
 brightgreen = (0,255,0)
 brightred = (255,0,0)
 
-# Function for drawing diffrent images of the game
+# Function for drawing different images of the game
 def car_draw(x,y,car_file):
+    """
+    Draws the player's car on the game screen.
+    
+    Args:
+        x (int): X-coordinate position to draw the car
+        y (int): Y-coordinate position to draw the car
+        car_file (str): File path of the car image to be loaded and displayed
+    """
     car_img = pygame.image.load(car_file)
     screen.blit(car_img,(x,y))
 
-#Function to show the score on the screen
+# Function to show the score on the screen
 def dogde_score(count):
+    """
+    Renders and displays the player's current score on the game screen.
+    
+    Args:
+        count (int): The current score of the player
+    """
     font = pygame.font.SysFont(None,40)
     score = font.render("Your Score : " + str(count),True,black)
     screen.blit(score,(10,10))
 
 # Function for drawing the obstacles 
 def thing_draw(cho,thingx,thingy):
+    """
+    Draws randomly selected obstacles on the game screen.
+    
+    Args:
+        cho (int): Random index to select which obstacle image to draw
+        thingx (int): X-coordinate position to draw the obstacle
+        thingy (int): Y-coordinate position to draw the obstacle
+    """
     thing = pygame.image.load("Assets/11.png")
     thing2 = pygame.image.load("Assets/12.png")
     thing3 = pygame.image.load("Assets/13.png")
@@ -45,18 +67,32 @@ def thing_draw(cho,thingx,thingy):
     final = l [cho]
     screen.blit(final,(thingx,thingy))
 
-
 def text_objects(text,font):
+    """
+    Creates a text surface and its rectangular area for rendering text.
+    
+    Args:
+        text (str): The text to be rendered
+        font (pygame.font.Font): The font to use for rendering the text
+    
+    Returns:
+        tuple: A surface containing the rendered text and its rectangular area
+    """
     textSurf = font.render(text,True,black)
     return textSurf , textSurf.get_rect()
 
-# Function of exit the game
 def exitgame():
+    """
+    Properly closes the Pygame window and exits the game.
+    """
     pygame.quit()
     quit()
 
-# Function for crash sequence    
 def crash ():
+    """
+    Handles the game crash sequence when the player's car collides with an obstacle.
+    Plays a crash sound, displays a crash message, and provides options to restart or quit.
+    """
     pygame.mixer.music.stop()
     pygame.mixer.Sound.play(crash_sound)
     crash = False
@@ -83,8 +119,20 @@ def crash ():
         pygame.display.update()
         clock.tick(60)
 
-# Function for making diffrent buttons using rectangle of pygame
 def button(x,y,b_width,b_height,activecolor,inactivecolor,msg,command=None):
+    """
+    Creates an interactive button with hover and click functionality.
+    
+    Args:
+        x (int): X-coordinate of the button's top-left corner
+        y (int): Y-coordinate of the button's top-left corner
+        b_width (int): Width of the button
+        b_height (int): Height of the button
+        activecolor: Color of the button when hovered
+        inactivecolor: Color of the button when not hovered
+        msg (str): Text to display on the button
+        command (function, optional): Function to call when button is clicked
+    """
     mouse = pygame.mouse.get_pos()
     mouse_key = pygame.mouse.get_pressed()
     
@@ -99,16 +147,22 @@ def button(x,y,b_width,b_height,activecolor,inactivecolor,msg,command=None):
     textRect.center = (x+45,y+30)
     screen.blit(textSurf,textRect)
 
-# Function for unpause the game
 def unpause():
-    pygame.mixer.music.unpause()
+    """
+    Resumes the game from a paused state.
+    Sets the global pause variable to False.
+    """
     global pause
+    pygame.mixer.music.unpause()
     pause = False
 
-# Function for Pause Screen         
 def pause_screen():
-    pygame.mixer.music.pause()
+    """
+    Displays the pause screen when the game is paused.
+    Allows the player to resume or quit the game.
+    """
     global pause
+    pygame.mixer.music.pause()
     pause = True
     while pause :
         for event in pygame.event.get():
@@ -129,8 +183,11 @@ def pause_screen():
         pygame.display.update()
         clock.tick(60)
 
-# Function for Intro Screen       
 def game_intro():
+    """
+    Displays the game's introduction/start screen.
+    Provides options to start the game or quit.
+    """
     done = False
     while not done :
         for event in pygame.event.get():
@@ -156,9 +213,11 @@ def game_intro():
         pygame.display.update()
         clock.tick(60)
 
-# Function for functions of game
-
 def game_loop():
+    """
+    The main game loop that handles game mechanics, player movement, 
+    obstacle generation, collision detection, and scoring.
+    """
     pygame.mixer.music.play(-1)
     # for drawing the Photo
     thing_width = 100
