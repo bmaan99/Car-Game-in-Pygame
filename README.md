@@ -24,8 +24,6 @@ This is a simple car dodging game developed using Pygame, where the player contr
 ## Game Controls
 - Left Arrow: Move car left
 - Right Arrow: Move car right
-- P: Pause game
-- Q: Quit game
 
 ## Assets
 The game uses the following assets:
